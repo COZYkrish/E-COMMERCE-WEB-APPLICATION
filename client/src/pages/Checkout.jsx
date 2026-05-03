@@ -6,6 +6,24 @@ import { useCart } from '../context/CartContext';
 import { formatPrice } from '../utils/helpers';
 import toast from 'react-hot-toast';
 
+// ⚠️ MUST be outside Checkout — defining components inside a render function
+// causes React to unmount/remount them on every state change, losing input focus.
+const Field = ({ label, name, value, onChange, placeholder, type = 'text', required = true }) => (
+  <div>
+    <label className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+    <input
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required={required}
+      className="input-field"
+    />
+  </div>
+);
+
+
 const Checkout = () => {
   const navigate = useNavigate();
   const { cart, clearCartState } = useCart();
@@ -34,13 +52,7 @@ const Checkout = () => {
     } finally { setLoading(false); }
   };
 
-  const Field = ({ label, name, value, onChange, placeholder, type = 'text', required = true }) => (
-    <div>
-      <label className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
-      <input type={type} name={name} value={value} onChange={onChange} placeholder={placeholder}
-        required={required} className="input-field" />
-    </div>
-  );
+
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 page-enter">
