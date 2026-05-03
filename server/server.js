@@ -27,6 +27,7 @@ const connectDB = require('./config/db');
 const errorHandler = require('./middleware/errorHandler');
 const notFound = require('./middleware/notFound');
 const healthRoutes = require('./routes/healthRoutes');
+const authRoutes = require('./routes/authRoutes');
 
 // ── Connect to MongoDB
 connectDB();
@@ -68,8 +69,8 @@ app.use(express.urlencoded({ extended: true }));
 // ─────────────────────────────────────────────────────────
 
 app.use('/api/health', healthRoutes);
+app.use('/api/auth', authRoutes);
 
-// ── TODO (Phase 2): app.use('/api/auth', authRoutes);
 // ── TODO (Phase 3): app.use('/api/products', productRoutes);
 // ── TODO (Phase 4): app.use('/api/cart', cartRoutes);
 // ── TODO (Phase 4): app.use('/api/orders', orderRoutes);
